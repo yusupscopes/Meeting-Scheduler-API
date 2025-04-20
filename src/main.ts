@@ -4,7 +4,8 @@ import { setupSwagger } from './shared/utils/swagger';
 import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const appOptions = { cors: true };
+  const app = await NestFactory.create(AppModule, appOptions);
 
   // Auto validation at application level
   app.useGlobalPipes(new ValidationPipe({ transform: true }));

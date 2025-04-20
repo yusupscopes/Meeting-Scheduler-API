@@ -8,7 +8,7 @@ import { jwtConstants } from './constants';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import { APP_GUARD } from '@nestjs/core';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
-import { PrismaModule } from 'src/shared/prisma/prisma.module';
+import { PrismaModule } from '../../shared/prisma/prisma.module';
 
 @Module({
   imports: [

@@ -7,12 +7,12 @@ export class UsersController {
   constructor(private usersService: UsersService) {}
 
   @Get('me')
-  getProfile(@Req() req: Request & { user: { id: string } }) {
+  getProfile(@Req() req: { user: { id: string } }) {
     return this.usersService.getProfile(req.user.id);
   }
 
   @Patch('me')
-  updateProfile(@Req() req: Request & { user: { id: string } }, @Body() dto: UpdateUserDto) {
+  updateProfile(@Req() req: { user: { id: string } }, @Body() dto: Partial<UpdateUserDto>) {
     return this.usersService.updateProfile(req.user.id, dto);
   }
 }
