@@ -30,9 +30,22 @@ describe('UsersService', () => {
   });
 
   it('should update user profile', async () => {
-    mockPrismaService.user.update.mockResolvedValue({ id: '1', timezone: 'Asia/Jakarta' });
+    mockPrismaService.user.update.mockResolvedValue({
+      id: '1',
+      timezone: 'Asia/Jakarta',
+      workingHours: {
+        monday: { start: '09:00', end: '17:00' },
+      },
+    });
 
-    const result = await userService.updateProfile('1', { timezone: 'Asia/Jakarta' });
+    const result = await userService.updateProfile('1', {
+      timezone: 'Asia/Jakarta',
+      workingHours: {
+        monday: { start: '09:00', end: '17:00' },
+      },
+    });
+
     expect(result.timezone).toBe('Asia/Jakarta');
+    expect(result.workingHours).toEqual({ monday: { start: '09:00', end: '17:00' } });
   });
 });

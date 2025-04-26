@@ -3,6 +3,7 @@ import { JwtService } from '@nestjs/jwt';
 import { Test } from '@nestjs/testing';
 import * as bcrypt from 'bcrypt';
 import { PrismaService } from '../../shared/prisma/prisma.service';
+import { RegisterDto } from './dto';
 
 describe('AuthService', () => {
   let authService: AuthService;
@@ -31,7 +32,7 @@ describe('AuthService', () => {
   });
 
   it('should register a user with hashed password', async () => {
-    const dto = { email: 'a@mail.com', password: '123456', role: 'USER' };
+    const dto = { email: 'a@mail.com', password: '123456', role: 'USER' } as RegisterDto;
     jest.spyOn(bcrypt, 'hash').mockResolvedValue('hashed' as never);
     mockPrismaService.user.create.mockResolvedValue({ id: '1', ...dto });
 

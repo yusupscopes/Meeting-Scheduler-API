@@ -9,7 +9,12 @@ describe('UsersController', () => {
   beforeEach(async () => {
     service = {
       getProfile: jest.fn().mockResolvedValue({ id: '1', email: 'test@mail.com' }),
-      updateProfile: jest.fn().mockResolvedValue({ timezone: 'Asia/Jakarta' }),
+      updateProfile: jest.fn().mockResolvedValue({
+        timezone: 'Asia/Jakarta',
+        workingHours: {
+          monday: { start: '09:00', end: '17:00' },
+        },
+      }),
     };
 
     const module = await Test.createTestingModule({
@@ -28,8 +33,14 @@ describe('UsersController', () => {
   it('should update profile', async () => {
     const result = await controller.updateProfile(
       { user: { id: '1' } },
-      { timezone: 'Asia/Jakarta' },
+      {
+        timezone: 'Asia/Jakarta',
+        workingHours: {
+          monday: { start: '09:00', end: '17:00' },
+        },
+      },
     );
     expect(result.timezone).toBe('Asia/Jakarta');
+    expect(result.workingHours).toEqual({ monday: { start: '09:00', end: '17:00' } });
   });
 });

@@ -5,7 +5,7 @@ import { AppModule } from '../src/app.module';
 import { PrismaService } from '../src/shared/prisma/prisma.service';
 import { App } from 'supertest/types';
 import { LoginResponseDto } from 'src/modules/auth/dto/login-response.dto';
-import { GetUserDto } from 'src/modules/users/dto';
+import { User } from '@prisma/client';
 
 describe('App E2E', () => {
   let app: INestApplication<App>;
@@ -56,18 +56,28 @@ describe('App E2E', () => {
       .get('/users/me')
       .set('Authorization', `Bearer ${access_token}`);
     expect(res.statusCode).toBe(200);
-    const _body = res.body as GetUserDto;
+    const _body = res.body as User;
     expect(_body.email).toBe(userDto.email);
   });
 
-  it('should update user profile timezone', async () => {
+  it('should update user profile timezone and working hours', async () => {
     const res: request.Response = await request(server)
       .patch('/users/me')
       .set('Authorization', `Bearer ${access_token}`)
-      .send({ timezone: 'Asia/Jakarta' });
+      .send({
+        timezone: 'Asia/Jakarta',
+        workingHours: {
+          monday: { start: '09:00', end: '17:00' },
+          friday: { start: '10:00', end: '16:00' },
+        },
+      });
 
     expect(res.statusCode).toBe(200);
-    const _body = res.body as GetUserDto;
+    const _body = res.body as User;
     expect(_body.timezone).toBe('Asia/Jakarta');
+    expect(_body.workingHours).toEqual({
+      monday: { start: '09:00', end: '17:00' },
+      friday: { start: '10:00', end: '16:00' },
+    });
   });
 });
