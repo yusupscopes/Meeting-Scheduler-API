@@ -17,7 +17,7 @@ import { PrismaModule } from '../../shared/prisma/prisma.module';
     PrismaModule,
     JwtModule.register({
       secret: jwtConstants.secret,
-      signOptions: { expiresIn: '60s' },
+      signOptions: { expiresIn: '1h' },
     }),
   ],
   providers: [
