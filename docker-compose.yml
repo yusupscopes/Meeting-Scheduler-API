@@ -20,6 +20,21 @@ services:
     container_name: redis
     ports:
       - "6379:6379"
+  api:
+    build: .
+    container_name: schedz
+    ports:
+      - "3000:3000"
+    environment:
+      - DATABASE_URL=postgresql://user:password@localhost:5432/scheduler
+      - REDIS_URL=redis://localhost:6379
+    depends_on:
+      - postgres
+      - redis
+    restart: always
+    volumes:
+      - .:/app
+      - /app/node_modules
 
 volumes:
   postgres-data:
