@@ -17,12 +17,12 @@ This project helps users across different timezones find overlapping meeting slo
 
 ## ✅ Phase 2: Auth & User Management
 
-- [ ] Register/Login endpoint with JWT
-- [ ] Secure routes with AuthGuard
-- [ ] Hash passwords using bcrypt
-- [ ] Setup user roles: `user`, `guest`
-- [ ] Add user profile fields: `timezone`, `workingHours`
-- [ ] CRUD endpoints for profile
+- [x] Register/Login endpoint with JWT
+- [x] Secure routes with AuthGuard
+- [x] Hash passwords using bcrypt
+- [x] Setup user roles: `user`, `guest`
+- [x] Add user profile fields: `timezone`, `workingHours`
+- [x] CRUD endpoints for profile
 
 ---
 
